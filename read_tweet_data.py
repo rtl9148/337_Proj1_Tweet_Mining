@@ -8,7 +8,8 @@ def read_tweet_text(file_name):
 
 if __name__ == '__main__':
     data_file = 'gg2013.json'
-    text_lines = read_tweet_text(data_file)
+    text_lines = read_tweet_text(data_file) 
     for line_i in text_lines[:100]:
         print(line_i)
-    
+
+ 
