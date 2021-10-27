@@ -2,10 +2,11 @@ import json
 import re
 import os
 import operator
-import spacy
-nlp = spacy.load('en_core_web_sm')
-from spacy import displacy
+#import spacy
+#nlp = spacy.load('en_core_web_sm')
+#from spacy import displacy
 from collections import Counter
+from textblob import TextBlob
 
 #Clean tweets by removing tweets with the word 'presenter'
 #B/C When getting hosts, sometimes presenters are returned.
@@ -52,6 +53,28 @@ def extract_info(data_lines):
 def get_max_k (count_table):
     return max(count_table.items(), key=operator.itemgetter(1))[0]
 
+def get_keyword_tweets(keyword, data_lines):
+    host_tweets = []
+    #filter tweets to include only host-related tweets
+    for tweet in data_lines:
+        if re.search(keyword, tweet.lower()):
+            host_tweets.append(tweet)
+    return host_tweets
+
+def get_sentiment(tweets):
+    #Find the sentiment
+    polarities = []
+    for tweet in tweets:
+        blob = TextBlob(tweet)
+        polarity = blob.sentiment.polarity
+        polarities.append(polarity)
+        print("Tweet: ", tweet, ", ", "Polarity: ", polarity)
+    
+    average_pol = sum(polarities) / len(polarities)
+
+    return average_pol
+
+
 def get_hosts(data_lines):
     host_tweets = []
     #filter tweets to include only host-related tweets
@@ -81,13 +104,26 @@ def get_entities(tweet):
     #    print(ent_list)
     return ent_list
 
+
+
 if __name__ == '__main__':
     data_file = 'gg2013.json'
     data_lines = make_tweet_list(data_file)
-    filtered = clean_tweets(data_lines)
-    hosts = get_hosts(filtered)
+    #filtered = clean_tweets(data_lines)
+   # hosts = get_hosts(filtered)
     #print(hosts)
-    print('Host: ', get_max_k(hosts))
+    #print('Host: ', get_max_k(hosts))
+    host_tweets = get_keyword_tweets("host", data_lines)
+    song_tweets = get_keyword_tweets("best original song - motion picture", data_lines)
+    animated_tweets = get_keyword_tweets("best animated feature film", data_lines)
+    cecil_tweets = get_keyword_tweets("cecil b. demille award", data_lines)
+    #song_sentiment = get_sentiment(song_tweets)
+
+    #print("Number of Tweets: ", len(host_tweets))
+    #print("Best Original Song Sentiment: ", get_sentiment(song_tweets))
+    print("Best animated feature film sentiment: ", get_sentiment(animated_tweets))
+    #print("Cecil b Demille Sentiment: ", get_sentiment(cecil_tweets))
+
     
 
     
