@@ -34,7 +34,7 @@ def get_keyword_tweets(keyword, data_lines):
 def get_sentiment(tweets, category):
     polarities = []
     timestamps = []
-    print(len(tweets))
+
     for tweet in tweets:
         blob = TextBlob(tweet[1])
         polarity = blob.sentiment.polarity
