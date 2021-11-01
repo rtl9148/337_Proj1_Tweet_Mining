@@ -2,10 +2,9 @@
 
 Run python install -r requirements.txt
 
+Run python -m spacy download en_core_web_sm
 
-Paste the following command into "main" in the gg_api.py file:
-
-nltk.download('punkt')
+nltk.download('punkt') in data_extraction.py may download and check for update for every run
 
 
 ## RUNNING THE CODE
