@@ -11,12 +11,8 @@
 
 import json, re, time, os, csv
 import numpy as np
-import spacy
-from stanza.server import CoreNLPClient
 
 from nltk.metrics import edit_distance
-
-spacy_nlp = spacy.load("en_core_web_sm")
 
 
         
