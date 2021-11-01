@@ -4,9 +4,9 @@ Github repo: https://github.com/rtl9148/337_Proj1_Tweet_Mining
 SETUP
 Run python install -r requirements.txt
 
-Paste the following command into "main" in the gg_api.py file:
+Run python -m spacy download en_core_web_sm
 
-nltk.download('punkt')
+nltk.download('punkt') in data_extraction.py may download and check for update for every run
 
 RUNNING THE CODE
 SENTIMENT CODE
